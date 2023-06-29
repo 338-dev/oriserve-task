@@ -1,0 +1,26 @@
+.PhotoListContainer {
+  margin: 10;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: center;
+}
+
+.PhotoListContainer::after {
+  content: "";
+  width: 15em;
+}
+
+.ModalImageParent {
+  display: flex;
+  justify-content: center;
+}
+
+.Spinner {
+  margin-top: 300px;
+}
+
+.PhotoParent {
+  margin: 10px;
+  cursor: pointer;
+}
