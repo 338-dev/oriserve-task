@@ -1,5 +1,5 @@
 .PhotoListContainer {
-  margin: 10;
+  margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -11,7 +11,7 @@
 }
 
 .Spinner {
-  margin-top: 300px;
+  margin-top: 400px;
 }
 
 .PhotoParent {

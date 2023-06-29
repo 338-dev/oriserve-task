@@ -114,12 +114,11 @@ const PhotoList = ({ searchText }) => {
         open={isModalOpen}
         onCancel={handleCancel}
         centered
-        width={"500px"}
         footer={null}
         closable={false}
       >
         <div className="ModalImageParent">
-          <img src={modalImage} alt="img" width={"450px"} />
+          <img src={modalImage} alt="img" width={"100%"} />
         </div>
       </Modal>
     </div>
