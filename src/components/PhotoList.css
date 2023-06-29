@@ -2,13 +2,7 @@
   margin: 10;
   display: flex;
   flex-wrap: wrap;
-  margin: auto;
   justify-content: center;
-}
-
-.PhotoListContainer::after {
-  content: "";
-  width: 15em;
 }
 
 .ModalImageParent {
