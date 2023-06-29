@@ -10,6 +10,8 @@ const PhotoList = ({ searchText }) => {
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   const fetchImageData = debounce(() => {
+    setIsDataLoading(true);
+
     const apiKey = "6a8ba2b800fb972f539c5a086b465c6a";
 
     let photoMethod;
@@ -17,25 +19,13 @@ const PhotoList = ({ searchText }) => {
       photoMethod = "getRecent";
     } else {
       photoMethod = "search";
-
-      const storedHistory = JSON.parse(
-        localStorage.getItem("photoSearchHistory")
-      );
-
-      if (!storedHistory?.includes(searchText.toLowerCase())) {
-        if (localStorage.getItem("photoSearchHistory")) {
-          localStorage.setItem(
-            "photoSearchHistory",
-            JSON.stringify([searchText, ...storedHistory])
-          );
-        } else {
-          localStorage.setItem(
-            "photoSearchHistory",
-            JSON.stringify([searchText])
-          );
-        }
-      }
     }
+    const stringifiedHistory = localStorage.getItem("photoSearchHistory");
+    const storedHistory = JSON.parse(stringifiedHistory);
+
+    const index = storedHistory?.findIndex((element) => {
+      return element.toLowerCase() === searchText.toLowerCase();
+    });
 
     let data = {
       method: `flickr.photos.${photoMethod}`,
@@ -59,6 +49,21 @@ const PhotoList = ({ searchText }) => {
         });
         setIsDataLoading(false);
         setPhotosArray(photosCollectionArr);
+
+        if (photoMethod === "search") {
+          if (stringifiedHistory) {
+            if (index === -1)
+              localStorage.setItem(
+                "photoSearchHistory",
+                JSON.stringify([searchText, ...storedHistory])
+              );
+          } else {
+            localStorage.setItem(
+              "photoSearchHistory",
+              JSON.stringify([searchText])
+            );
+          }
+        }
       })
       .catch((error) => {
         setIsDataLoading(false);
@@ -68,8 +73,6 @@ const PhotoList = ({ searchText }) => {
   }, 1000);
 
   useEffect(() => {
-    setIsDataLoading(true);
-
     fetchImageData();
 
     return () => {
@@ -123,7 +126,7 @@ const PhotoList = ({ searchText }) => {
       </Modal>
     </div>
   ) : (
-    <div>
+    <div className="imageNotFound">
       <h3 align="center">No images found</h3>
     </div>
   );
