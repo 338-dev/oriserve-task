@@ -20,7 +20,7 @@ const SearchHeader = ({ setSearchText, searchText }) => {
 
     setOptions(
       searchedHistory?.filter((value) => {
-        return value?.value?.includes(text);
+        return value?.value?.includes(text.toLowerCase());
       })
     );
   };

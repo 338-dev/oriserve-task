@@ -22,7 +22,7 @@ const PhotoList = ({ searchText }) => {
         localStorage.getItem("photoSearchHistory")
       );
 
-      if (!storedHistory?.includes(searchText)) {
+      if (!storedHistory?.includes(searchText.toLowerCase())) {
         if (localStorage.getItem("photoSearchHistory")) {
           localStorage.setItem(
             "photoSearchHistory",
@@ -75,7 +75,7 @@ const PhotoList = ({ searchText }) => {
     return () => {
       fetchImageData.cancel();
     };
-  }, [searchText.trim()]);
+  }, [searchText.trim().toLowerCase()]);
 
   const showModal = (img) => {
     setModalImage(img);
